@@ -1,0 +1,58 @@
+<div class="donation">
+  <input class="donation-input" id="donate-value" value="" placeholder="100$">
+  <div class="donation-options">
+    <button class="donation-option" data-value="50" onclick="changeDonateVal(event);">+50$</button>
+    <button class="donation-option" data-value="100" onclick="changeDonateVal(event);">+100$</button>
+    <button class="donation-option" data-value="150" onclick="changeDonateVal(event);">+150$</button>
+  </div>
+  <form method="POST" accept-charset="utf-8" action="https://www.liqpay.ua/api/3/checkout">
+      <input type="hidden" name="data" value="eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXlkb25hdGUiLCJhbW91bnQiOiI1MCIsImN1cnJlbmN5IjoiVVNEIiwiZGVzY3JpcHRpb24iOiJNeSBnb29kcyIsInB1YmxpY19rZXkiOiJzYW5kYm94X2k5MDQ2MDcyMjQwMSIsImxhbmd1YWdlIjoiZW4ifQ==" />
+      <input type="hidden" name="signature" value="s1JmqehF8c7BRYz7DdnoYoMHTXw=" />
+      <button style="border: none !important; display:inline-block !important;text-align: center !important;padding: 7px 20px !important;
+        color: #fff !important; font-size:16px !important; font-weight: 600 !important; font-family:OpenSans, sans-serif; cursor: pointer !important; border-radius: 2px !important;
+        background: rgba(122,183,43,1) !important;"onmouseover="this.style.opacity='0.5';" onmouseout="this.style.opacity='1';">
+        <img src="https://static.liqpay.ua/buttons/logo-small.png" name="btn_text"
+          style="margin-right: 7px !important; vertical-align: middle !important;"/>
+        <span style="vertical-align:middle; !important">Donate 50 USD</span>
+      </button>
+    </form>
+</div>
+
+<script>
+function changeDonateVal(e){  
+  let item = e.target;
+  let val = item.getAttribute('data-value');
+  let currentVal = document.getElementById('donate-value').value;
+  currentVal = parseInt(currentVal);
+  if (isNaN(currentVal)) 
+      currentVal = 0;
+  let total = currentVal + parseInt(val);
+  document.getElementById('donate-value').value = total;
+  json_string = {
+      "public_key":"sandbox_i90460722401",
+      "version":"3",
+      "action":"pay",
+      "amount": total ,
+      "currency":"USD",
+      "description":"donation"
+  };
+
+}
+
+</script>
+
+
+
+<style>
+.donation{}
+.donation-input{
+  display: block;
+  border: solid 1px #ccc;
+  background: none;
+  border-radius: 3px;
+  font-size: 24px;  
+  padding: 5px 10px;
+  width: 300px;
+}
+.donation-options{}
+</style>
